@@ -47,7 +47,7 @@ tang = 1.5*L_height/(m_nh3+m_sol)
 
 
 delta(1, m_sol, L_height, 'solanka', coords, tang,0)
-delta(1, m_nh3, L_height, 'NH3', [coords[0]+m_sol, coords[1]], tang,0)
+delta(1, m_nh3, L_height, 'NH$_3$', [coords[0]+m_sol, coords[1]], tang,0)
 coords[1] -= L_height
 mass += m_nh3
 delta(0, mass, s_height, 'wytrącanie', coords, tang,0)
