@@ -1,5 +1,5 @@
 #L
-+600 solanka
++660 solanka
 +151.78 NH$_3$
 #s
 =811.78 wysycanie
@@ -14,12 +14,13 @@
 =1038.34 mieszanina poreakcyjna
 #s
 =1038.34 sączenie pod zmniejszonym ciśnieniem
-#L
+#LsL
 -916.78 przesącz
-##L
-=121.56 soda mokra
-##s
-=121.56 suszenie
-##L
--53.18 woda
--68.38 bikarbonat
+    #L
+    =121.56 soda mokra
+    #s
+    =121.56 suszenie
+    #L
+    -53.18 woda
+    -68.38 bikarbonat
+#
