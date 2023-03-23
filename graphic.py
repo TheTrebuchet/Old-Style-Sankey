@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 from numpy import sign
 import argparse
-import re
  
 parser = argparse.ArgumentParser(
                     prog='ClassicSankeyGen',
