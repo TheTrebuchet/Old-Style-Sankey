@@ -23,8 +23,6 @@ class block:
         self.value = float(line.split(' ',1)[0][1:])
         self.name = line.split(' ',1)[1]
 
-
-
 def delta(typ, mass, height, name, coords, tang, skew):
     insert = tang*mass/2
     if insert>0.2*height:insert=0.2*height
@@ -53,53 +51,69 @@ ax = plt.Axes(fig, [0., 0., 1., 1.])
 ax.set_axis_off()
 fig.add_axes(ax)
 
-def draw(file):
+with open(args.filename) as content:
+    lines = content.readlines()
+lines = [i.replace('\n','') for i in lines if i != '\n']
+rows = []
+mode = 0
+for l in lines:
+    if '    #' in l:
+        mode+=1
+    if mode and '    ' not in l:
+        rows[-(mode+1)].append(rows[-mode:])
+        rows = rows[:-(mode)]
+        mode = 0
+    if '#'in l:
+        rows.append([l.strip()[1:]])
+    else:
+        rows[-1].append(block(l.strip()))
+rows = [r for r in rows if r!=['']]
 
-    with open(file) as content:
-        lines = content.readlines()
-    lines = [i.replace('\n','') for i in lines if i != '\n']
-    rows = []
-    mode = 0
-    for l in lines:
-        if '    #' in l:
-            mode+=1
-        if mode and '    ' not in l:
-            rows[-(mode+1)].append(rows[-mode:])
-            rows = rows[:-(mode)]
-            mode = 0
-        if '#'in l:
-            rows.append([l.strip()[1:]])
+def unnest(inp):
+    res = []
+    for i in inp:
+        if isinstance(i,list):
+            if isinstance(i[0],list):
+                res.extend([b for r in i for b in r])
+            else:
+                res.extend(i)
         else:
-            rows[-1].append(block(l.strip()))
-    rows = [r for r in rows if r!=['']]
+            res.extend(inp)
+    return [el for el in res if isinstance(el,block)]
 
-    #settings
-    L_height = 0.2
-    s_height = 0.1
-    skew = (750)/L_height*0.05
-    tang = 1.5*L_height/(750)
-    coords = [0,0]
-    mode = {'+':1,'=':0,'-':-1}
-    height = {'L':L_height,'s':s_height}
+#dictionaries
+L_height = 0.2
+s_height = 0.1
+mode = {'+':1,'=':0,'-':-1}
+height = {'L':L_height,'s':s_height}
 
-    def rowbyrow(rows,coords):
-        for row in rows:
-            h = sum(height[i] for i in row[0])
-            mass = 0
-            out = 0
-            ind = rows.index(row)
-            if ind == 0 or ind == len(rows)-1:s = 0
-            else:s=skew
-            for entry in row[1:]:
-                if not isinstance(entry,block):
-                    rowbyrow(entry,[coords[0]+mass,coords[1]])
-                    continue
-                delta(entry.delta, entry.value, h, entry.name, [coords[0]+mass,coords[1]], tang,s)
-                mass+=float(entry.value)
-                if entry.delta==-1:out+=float(entry.value)
-            coords[1]-=h
-            coords[0]+=out
-    rowbyrow(rows,coords)
-    plt.show()
+#from rows
+globalwidth = sum([float(l.strip().split(' ',1)[0]) for l in lines if '+' in l])
+globalheight = sum([sum([height[el] for el in l[1:]]) for l in lines if '#' in l and '    'not in l])
 
-draw(args.filename)
+#settings
+skew = globalwidth*0.2
+tang = globalheight/globalwidth*0.4
+coords = [0,0]
+
+def rowbyrow(rows,coords):
+    for row in rows:
+        h = sum(height[i] for i in row[0])
+        mass = 0
+        out = 0
+        ind = rows.index(row)
+        if ind == 0 or ind == len(rows)-1:s = 0
+        else:s=skew
+        for entry in row[1:]:
+            if not isinstance(entry,block):
+                rowbyrow(entry,[coords[0]+mass,coords[1]])
+                continue
+            delta(entry.delta, entry.value, h, entry.name, [coords[0]+mass,coords[1]], tang,s)
+            mass+=float(entry.value)
+            if entry.delta==-1:out+=float(entry.value)
+        coords[1]-=h
+        coords[0]+=out
+rowbyrow(rows,coords)
+plt.show()
+
+
