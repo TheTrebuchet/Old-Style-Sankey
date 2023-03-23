@@ -7,8 +7,10 @@ parser = argparse.ArgumentParser(
                     description='Creates Sankey diagrams',
                     epilog='Just read readme if you feel lost')
 
-parser.add_argument('filename')           # positional argument
-parser.add_argument('-u', '--unit')      # option that takes a value
+parser.add_argument('filename')
+parser.add_argument('-u', '--unit')
+parser.add_argument('-s', '--skew',default = 0.2)
+parser.add_argument('-t', '--tang',default = 0.4)
 parser.add_argument('-g', '--grid', action='store_true')  # on/off flag
 args = parser.parse_args()
 
@@ -92,8 +94,8 @@ globalwidth = sum([float(l.strip().split(' ',1)[0]) for l in lines if '+' in l])
 globalheight = sum([sum([height[el] for el in l[1:]]) for l in lines if '#' in l and '    'not in l])
 
 #settings
-skew = globalwidth*0.2
-tang = globalheight/globalwidth*0.4
+skew = globalwidth*args.skew
+tang = globalheight/globalwidth*args.tang
 coords = [0,0]
 
 def rowbyrow(rows,coords):
@@ -113,6 +115,7 @@ def rowbyrow(rows,coords):
             if entry.delta==-1:out+=float(entry.value)
         coords[1]-=h
         coords[0]+=out
+
 rowbyrow(rows,coords)
 plt.show()
 
