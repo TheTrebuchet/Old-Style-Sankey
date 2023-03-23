@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from numpy import sign
 import argparse
+import re
  
 parser = argparse.ArgumentParser(
                     prog='ClassicSankeyGen',
@@ -55,7 +56,7 @@ fig.add_axes(ax)
 
 with open(args.filename) as content:
     lines = content.readlines()
-lines = [i.replace('\n','') for i in lines if i != '\n']
+lines = [i.rstrip('\n') for i in lines if i != '\n']
 rows = []
 mode = 0
 for l in lines:
