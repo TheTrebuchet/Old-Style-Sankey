@@ -6,10 +6,14 @@ If you want quick summary of what you can do run `python graphic.py -h` and look
 
 ## Command options
 
-`--h` shows help
+`--h` shows help \
+
 `--unit` accepts a unit, like g/h
+
 `--skew` is a percentage of the whole graphic width at which the inputs and outputs are shifted to the side, 0 disables this effect, default is `0.2`
+
 `--tang` is a multiplier for the cut-outs in input and output blocks, it specified global angle at which they are created, default is `0.4`
+
 `--grid` is an on/off flag that creates the grid and currently it's not working
 
 ## Generating config
@@ -26,7 +30,7 @@ Place a `#` and specify height with `L` being large and `s` being small. Just li
 
 ### Initiate blocks
 
-specify input/operation/output with +/=/- and type in text that will be displayed in the block
+Specify input/operation/output with +/=/- and type in text that will be displayed in the block.
 
 ```txt
 #s
@@ -34,7 +38,7 @@ specify input/operation/output with +/=/- and type in text that will be displaye
 -88.84 loss of CO$_2$
 ```
 
-new blocks within the row exist are placed simply below. Any kind of python formatting is acceptable.
+New blocks within the row exist are placed simply below. Any kind of python formatting is acceptable.\
 Notably `\n` is for new line and any `$_a$` is for subscripts and `$^a$` is for superscripts
 
 ### Multi-level blocks
@@ -44,7 +48,8 @@ You can create many additional rows within a row.
 1. First initiate a row like usual
 2. Place some new blocks
 3. In the place where multiple rows would exist, just create an indentation and initiate new rows
-!!! be sure to make additional height in the top-level row. Say your top level row consists of one small and two L rows, you initiate it by #sLs !!!
+
+!!! be sure to make additional height in the top-level row. Say your top level row consists of one small and two L rows, you initiate it by `#sLs` !!!
 
 ```txt
 #s
