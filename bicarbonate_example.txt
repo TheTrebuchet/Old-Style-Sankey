@@ -1,0 +1,26 @@
+#L
++660 brine
++151.78 NH$_3$
+#s
+=811.78 saturation
+#L
+-116.74 loss of NH$_3$
+=695.04 ammonia brine
++432.14 CO$_2$
+#s
+=1127.18 carbonization
+#L
+-88.84 loss of CO$_2$
+=1038.34 post-reaction mixture
+#s
+=1038.34 filtration under reduced pressure
+#LsL
+-916.78 filtrate
+    #L
+    =121.56 wet bicarbonate
+    #s
+    =121.56 drying
+    #L
+    -53.18 water
+    -68.38 bicarbonate
+#
