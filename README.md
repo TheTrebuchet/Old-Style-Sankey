@@ -4,6 +4,10 @@ Generator of sankey diagrams in the old style
 
 If you want quick summary of what you can do run `python graphic.py -h` and look at the example file.
 
+## Basics
+
+In order to use this program, download the folder, run the `python graphic.py` in terminal followed by config.txt file name. It should be located in the same folder but it doesn't have to be, just write the whole path.
+
 ## Command options
 
 `--h` shows help
