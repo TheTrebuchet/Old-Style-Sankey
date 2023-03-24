@@ -30,7 +30,7 @@ Place a `#` and specify height with `L` being large and `s` being small. Just li
 
 ### Initiate blocks
 
-Specify input/operation/output with +/=/- and type in text that will be displayed in the block.
+Specify input/operation/output with +/=/- and type in text that will be displayed in the block. *General convention is that blocks should come in a sequence of outputs, operations and inputs, but that's just you choice*
 
 ```txt
 #s
