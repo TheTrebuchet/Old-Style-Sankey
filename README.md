@@ -6,7 +6,7 @@ If you want quick summary of what you can do run `python graphic.py -h` and look
 
 ## Command options
 
-`--h` shows help \
+`--h` shows help
 
 `--unit` accepts a unit, like g/h
 
