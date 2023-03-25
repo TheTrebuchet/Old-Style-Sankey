@@ -63,9 +63,9 @@ lines = [i.rstrip('\n') for i in lines if i != '\n']
 rows = []
 mode = 0
 for l in lines:
-    if '    #' in l:
+    if '    #' in l or '\t#' in l:
         mode+=1
-    if mode and '    ' not in l:
+    if mode and '    ' not in l and '\t' not in l:
         rows[-(mode+1)].append(rows[-mode:])
         rows = rows[:-(mode)]
         mode = 0
