@@ -16,6 +16,7 @@ parser.add_argument('-u', '--unit')
 parser.add_argument('-uv', '--unitvalue',default = 100)
 parser.add_argument('-s', '--skew',default = 0.2)
 parser.add_argument('-t', '--tang',default = 0.4)
+parser.add_argument('-m', '--margin',default = 0.1)
 parser.add_argument('-g', '--grid', action='store_true')  # on/off flag
 args = parser.parse_args()
 
@@ -131,21 +132,24 @@ def grid(width, height,margin,unit):
     hunit = unit*height/width
 
     limx = int((1+2*margin)*(width)//unit+1)
-    limy = int((1+2*margin)*(height)//(hunit)+2)
+    limy = int((1+2*margin)*(height)//hunit+1)
     
     for i in range(limx):
-        x = i*unit-margin*width
+        x = i*unit-margin*width+(margin*width)%unit
         plt.plot([x,x],[-(1+margin)*height, margin*height],zorder=0,c='lightgray',linestyle='--')
     
     for i in range(limy):
-        y = -i*hunit+margin*height
+        y = -i*hunit+margin*height-(margin*height)%hunit
         plt.plot([-margin*width, (1+margin)*width],[y,y],zorder=0,c='lightgray',linestyle='--')
 
-    ax.annotate("", xy=(-margin*width+unit, margin*height-(limy-2)*hunit), xytext=(-margin*width+2*unit,margin*height-(limy-2)*hunit), arrowprops={'arrowstyle':'<->', 'shrinkA': 0, 'shrinkB': 0},zorder=2).draggable()
-    ax.annotate(str(unit)+str(args.unit), (-margin*width+1.5*unit,margin*height-(limy-2.5)*hunit), ha='center', va='top',zorder=2).draggable()
+    start = [-margin*width+unit+(margin*width)%unit, margin*height-(margin*height)%hunit-(limy-2)*hunit]
+    end = [start[0]+unit,start[1]]
+    textco = [start[0]+0.5*unit,start[1]+0.5*hunit]
+    ax.annotate("", xy=start, xytext=end, arrowprops={'arrowstyle':'<->', 'shrinkA': 0, 'shrinkB': 0},zorder=2).draggable()
+    ax.annotate(str(unit)+str(args.unit), textco, ha='center', va='top',zorder=2).draggable()
     
 if args.grid:
-    grid(globalwidth, globalheight,margin,float(args.unitvalue))
+    grid(globalwidth, globalheight,float(args.margin),float(args.unitvalue))
 plt.show()
 
 
