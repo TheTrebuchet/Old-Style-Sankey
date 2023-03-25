@@ -66,3 +66,7 @@ You can create many additional rows within a row.
     #s
     =121.56 drying
 ```
+
+### All text is draggable
+
+change text position to your liking, be aware that while resizing the window still lets you drag it, if you zoom in or out you will lose that ability
