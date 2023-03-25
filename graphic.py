@@ -96,7 +96,7 @@ height = {'L':L_height,'s':s_height}
 
 #from rows
 globalwidth = sum([float(l.strip().split(' ',1)[0]) for l in lines if '+' in l])
-globalheight = sum([sum([height[el] for el in l[1:]]) for l in lines if '#' in l and '    'not in l])
+globalheight = sum([sum([height[el] for el in l[1:]]) for l in lines if '#' in l and '    ' not in l and '\t' not in l])
 
 #settings
 skew = globalwidth*args.skew

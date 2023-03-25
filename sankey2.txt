@@ -1,0 +1,25 @@
+#L
++389.0 etanol
++195.5 monomer (octan winylu)
++2.1 inicjator (nadtlenek benzoilu)
+
+#s
+=586.6 reakcja wstępna
+#L
+=586.6 mieszanina poreakcyjna
++733.4 metanol
++27.8 NaOH
+#s
+=1347.8 hydroliza (produkcja ciągła)
+#s
+=1347.8 sączenie
+#LsL
+-1119.4 przesącz
+	#L 
+	=228.4 mokry polimer
+	#s
+	=228.4 suszenie
+	#L
+	-161.7 odparowany rozpuszczalnik
+	-66.7 suchy polimer
+#
