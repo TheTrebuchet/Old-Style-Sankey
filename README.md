@@ -45,7 +45,7 @@ Specify input/operation/output with +/=/- and type in text that will be displaye
 ```
 
 New blocks within the row exist are placed simply below. Any kind of python formatting is acceptable.\
-Notably `\n` is for new line and any `$_a$` is for subscripts and `$^a$` is for superscripts
+Notably `\n` is for newline and `$_a$` is for subscripts and `$^a$` is for superscripts
 
 ### Multi-level blocks
 
