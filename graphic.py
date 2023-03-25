@@ -57,7 +57,7 @@ ax = plt.Axes(fig, [0., 0., 1., 1.])
 ax.set_axis_off()
 fig.add_axes(ax)
 
-with open(args.filename) as content:
+with open(args.filename,encoding='utf-8', errors='ignore') as content:
     lines = content.readlines()
 lines = [i.rstrip('\n') for i in lines if i != '\n']
 rows = []
