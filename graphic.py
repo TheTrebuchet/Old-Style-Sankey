@@ -13,6 +13,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('filename')
 parser.add_argument('-u', '--unit')
+parser.add_argument('-uv', '--unitvalue',default = 100)
 parser.add_argument('-s', '--skew',default = 0.2)
 parser.add_argument('-t', '--tang',default = 0.4)
 parser.add_argument('-g', '--grid', action='store_true')  # on/off flag
@@ -46,9 +47,9 @@ def delta(typ, mass, height, name, coords, tang, skew):
     xy[0] += -xy[1]*sign(typ)*skew +coords[0]
     xy[1] += coords[1]
     for i in range(len(verts)-1):
-        plt.plot((verts[i][0],verts[i+1][0]), (verts[i][1],verts[i+1][1]), c='black')
-    plt.plot((verts[0][0],verts[-1][0]), (verts[0][1],verts[-1][1]), c='black')
-    ax.annotate(name + '\n'+str(round(mass,2)) + args.unit, xy, ha='center', va='center').draggable()
+        plt.plot((verts[i][0],verts[i+1][0]), (verts[i][1],verts[i+1][1]), c='black',zorder=1)
+    plt.plot((verts[0][0],verts[-1][0]), (verts[0][1],verts[-1][1]), c='black',zorder=1)
+    ax.annotate(name + '\n'+str(round(mass,2)) + args.unit, xy, ha='center', va='center',zorder=2).draggable()
 
 w, h = 10, 10
 fig = plt.figure(frameon=True)
@@ -121,6 +122,30 @@ def rowbyrow(rows,coords):
         coords[0]+=out
 
 rowbyrow(rows,coords)
+
+margin=0.1
+def grid(width, height,margin,unit):
+    
+    plt.axis([-margin*width, (1+margin)*width, -(1+margin)*height, margin*height])
+
+    hunit = unit*height/width
+
+    limx = int((1+2*margin)*(width)//unit+1)
+    limy = int((1+2*margin)*(height)//(hunit)+2)
+    
+    for i in range(limx):
+        x = i*unit-margin*width
+        plt.plot([x,x],[-(1+margin)*height, margin*height],zorder=0,c='lightgray',linestyle='--')
+    
+    for i in range(limy):
+        y = -i*hunit+margin*height
+        plt.plot([-margin*width, (1+margin)*width],[y,y],zorder=0,c='lightgray',linestyle='--')
+
+    ax.annotate("", xy=(-margin*width+unit, margin*height-(limy-2)*hunit), xytext=(-margin*width+2*unit,margin*height-(limy-2)*hunit), arrowprops={'arrowstyle':'<->', 'shrinkA': 0, 'shrinkB': 0},zorder=2).draggable()
+    ax.annotate(str(unit)+str(args.unit), (-margin*width+1.5*unit,margin*height-(limy-2.5)*hunit), ha='center', va='top',zorder=2).draggable()
+    
+if args.grid:
+    grid(globalwidth, globalheight,margin,float(args.unitvalue))
 plt.show()
 
 

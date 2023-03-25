@@ -18,7 +18,9 @@ In order to use this program, download the folder, run the `python graphic.py` i
 
 `--tang` is a multiplier for the cut-outs in input and output blocks, it specified global angle at which they are created, default is `0.4`
 
-`--grid` is an on/off flag that creates the grid and currently it's not working
+`--grid` is an on/off flag that creates the grid
+
+`--unitvalue` accepts a value by which the grid will form, default is 100
 
 ## Generating config
 

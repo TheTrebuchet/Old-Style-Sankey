@@ -8,7 +8,7 @@
 =695.04 ammonia brine
 +432.14 CO$_2$
 #s
-=1127.18 carbonizatioń
+=1127.18 carbonization
 #L
 -88.84 loss of CO$_2$
 =1038.34 post-reaction mixture
