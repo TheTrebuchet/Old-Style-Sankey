@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
+from matplotlib import rc
 from numpy import sign
 import argparse
+
+font = {'family':'serif'}
+rc('font', **font)
  
 parser = argparse.ArgumentParser(
                     prog='ClassicSankeyGen',
