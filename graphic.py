@@ -29,7 +29,7 @@ class block:
         mode = {'+':1,'=':0,'-':-1}
         self.delta = mode[line[0]]
         self.value = float(line.split(' ',1)[0][1:])
-        self.name = line.split(' ',1)[1]
+        self.name = line.split(' ',1)[1].replace('\\n','\n')
 
 def delta(typ, mass, height, name, coords, tang, skew):
     insert = tang*mass/2
@@ -116,7 +116,8 @@ def rowbyrow(rows,coords):
             if not isinstance(entry,block):
                 rowbyrow(entry,[coords[0]+mass,coords[1]])
                 continue
-            delta(entry.delta, entry.value, h, entry.name, [coords[0]+mass,coords[1]], tang,s)
+            print(entry.name)
+            delta(entry.delta, entry.value, h, str(entry.name), [coords[0]+mass,coords[1]], tang,s)
             mass+=float(entry.value)
             if entry.delta==-1:out+=float(entry.value)
         coords[1]-=h

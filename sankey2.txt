@@ -6,7 +6,7 @@
 #s
 =586.6 reakcja wstępna
 #L
-=586.6 mieszanina poreakcyjna
+=586.6 mieszanina\nporeakcyjna
 +733.4 metanol
 +27.8 NaOH
 #s
