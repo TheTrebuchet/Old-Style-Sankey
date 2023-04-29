@@ -108,6 +108,8 @@ def rowbyrow(rows,coords):
         for entry in row[1:]:
             if not isinstance(entry,block):
                 rowbyrow(entry,[coords[0]+mass,coords[1]])
+                #if last blocks were outputting, the coords are updated accordingly
+                coords[0] += sum([b.value for b in entry[-1][1:] if b.delta == -1])
                 continue
             print(entry.name)
             delta(entry.delta, entry.value, h, str(entry.name), [coords[0]+mass,coords[1]], tang,s)
