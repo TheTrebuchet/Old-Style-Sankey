@@ -24,6 +24,7 @@ if not args.unit:
     print('you need to specify the unit\nadd for example \"-u g/h\"')
     quit()
 
+#for preparing the info about a single block
 class block:
     def __init__(self, line):
         mode = {'+':1,'=':0,'-':-1}
@@ -31,6 +32,7 @@ class block:
         self.value = float(line.split(' ',1)[0][1:])
         self.name = line.split(' ',1)[1].replace('\\n','\n')
 
+#for drawing the box
 def delta(typ, mass, height, name, coords, tang, skew):
     insert = tang*mass/2
     if insert>0.2*height:insert=0.2*height
@@ -52,6 +54,7 @@ def delta(typ, mass, height, name, coords, tang, skew):
     plt.plot((verts[0][0],verts[-1][0]), (verts[0][1],verts[-1][1]), c='black',zorder=1)
     ax.annotate(name + '\n'+str(round(mass,2)) + args.unit, xy, ha='center', va='center',zorder=2).draggable()
 
+#default simple settings, mostly turning off axes and other plot things
 w, h = 10, 10
 fig = plt.figure(frameon=True)
 fig.set_size_inches(w,h)
@@ -59,6 +62,7 @@ ax = plt.Axes(fig, [0., 0., 1., 1.])
 ax.set_axis_off()
 fig.add_axes(ax)
 
+#converts config to readable array
 with open(args.filename,encoding='utf-8', errors='ignore') as content:
     lines = content.readlines()
 lines = [i.rstrip('\n') for i in lines if i != '\n']
@@ -77,18 +81,6 @@ for l in lines:
         rows[-1].append(block(l.strip()))
 rows = [r for r in rows if r!=['']]
 
-def unnest(inp):
-    res = []
-    for i in inp:
-        if isinstance(i,list):
-            if isinstance(i[0],list):
-                res.extend([b for r in i for b in r])
-            else:
-                res.extend(i)
-        else:
-            res.extend(inp)
-    return [el for el in res if isinstance(el,block)]
-
 #dictionaries
 L_height = 0.2
 s_height = 0.1
@@ -104,6 +96,7 @@ skew = globalwidth*args.skew
 tang = globalheight/globalwidth*args.tang
 coords = [0,0]
 
+#draws the whole figure, THE IMPORTANT PART
 def rowbyrow(rows,coords):
     for row in rows:
         h = sum(height[i] for i in row[0])
@@ -126,6 +119,8 @@ def rowbyrow(rows,coords):
 rowbyrow(rows,coords)
 
 margin=0.1
+
+#for creating grid
 def grid(width, height,margin,unit):
     
     plt.axis([-margin*width, (1+margin)*width, -(1+margin)*height, margin*height])
