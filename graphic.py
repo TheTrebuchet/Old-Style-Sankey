@@ -55,8 +55,6 @@ def rowbyrow(rows,coords):
                 coords[0] += sum([b.value for b in entry[-1][1:] if '-' in b.delta])
                 continue
             if '@' in entry.delta: 
-                print('found loop')
-                print(entry.delta)
                 loop.append([entry,coords.copy(), h])
             delta(entry.delta, entry.value, h, str(entry.name), [coords[0]+mass,coords[1]], tang, s)
             mass+=float(entry.value)
@@ -65,7 +63,6 @@ def rowbyrow(rows,coords):
         coords[0]+=out
 
 def loopygoop(loop, glw, glh, ax):
-    print([a for b in loop for a in b])
     r = 10
     margin = 2
     ratio = glh/glw
@@ -87,9 +84,19 @@ def loopygoop(loop, glw, glh, ax):
 
     ax.add_patch(ptc.Arc((-r,enco[1]-enh), 2*r, 2*r*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
     ax.add_patch(ptc.Arc((-r,enco[1]-enh), 2*(r+enent.value), 2*(r+enent.value)*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
+    
+    offsetx = max(stco[0]+stent.value+margin+2*r, 0)
+    offsety = max(stco[1]+(r+stent.value)*ratio, 0)
+    glw += offsetx
+    glh = offsety + max(-enco[1]+enh+(r+enent.value)*ratio, glh)
+    return offsetx, offsety, glw, glh
+
+#FONTS
 font = {'family':'serif'}
 rc('font', **font)
  
+
+#ARGUMENTS
 parser = argparse.ArgumentParser(
                     prog='ClassicSankeyGen',
                     description='Creates Sankey diagrams',
@@ -153,14 +160,15 @@ loop = []
 #drawing the whole thing
 rowbyrow(rows,coords)
 #drawing the loop
-loopygoop(loop, globalwidth, globalheight, ax)
-
-margin=0.1
+loopmargin = 0
+offsetx = 0
+offsety = 0
+if loop: 
+    offsetx, offsety, globalwidth, globalheight = loopygoop(loop, globalwidth, globalheight, ax)
 
 #for creating grid
-def grid(width, height,margin,unit):
-    
-    plt.axis([-margin*width, (1+margin)*width, -(1+margin)*height, margin*height])
+def grid(width, height, margin, unit, offsetx, offsety):
+    plt.axis([-margin*width-offsetx, (1+margin)*width-offsetx, -(1+margin)*height, margin*height+offsety])
 
     hunit = unit*height/width
 
@@ -168,21 +176,22 @@ def grid(width, height,margin,unit):
     limy = int((1+2*margin)*(height)//hunit+1)
     
     for i in range(limx):
-        x = i*unit-margin*width+(margin*width)%unit
-        plt.plot([x,x],[-(1+margin)*height, margin*height],zorder=0,c='lightgray',linestyle='--')
+        x = i*unit-margin*width+(margin*width)%unit-offsetx
+        plt.plot([x,x],[-(1+margin)*height, margin*height+offsety],zorder=0,c='lightgray',linestyle='--')
     
     for i in range(limy):
-        y = -i*hunit+margin*height-(margin*height)%hunit
-        plt.plot([-margin*width, (1+margin)*width],[y,y],zorder=0,c='lightgray',linestyle='--')
+        y = -i*hunit+margin*height-(margin*height)%hunit+offsety
+        plt.plot([-margin*width-offsetx, (1+margin)*width],[y,y],zorder=0,c='lightgray',linestyle='--')
 
-    start = [-margin*width+unit+(margin*width)%unit, margin*height-(margin*height)%hunit-(limy-2)*hunit]
+    start = [-margin*width+unit+(margin*width)%unit-offsetx, margin*height-(margin*height)%hunit-(limy-1)*hunit+offsety]
     end = [start[0]+unit,start[1]]
+    
     textco = [start[0]+0.5*unit,start[1]+0.5*hunit]
     ax.annotate("", xy=start, xytext=end, arrowprops={'arrowstyle':'<->', 'shrinkA': 0, 'shrinkB': 0},zorder=2).draggable()
     ax.annotate(str(unit)+str(args.unit), textco, ha='center', va='top',zorder=2).draggable()
     
 if args.grid:
-    grid(globalwidth, globalheight,float(args.margin),float(args.unitvalue))
+    grid(globalwidth, globalheight,float(args.margin),float(args.unitvalue), offsetx,offsety)
 plt.show()
 
 
