@@ -38,6 +38,8 @@ Place a `#` and specify height with `L` being large and `s` being small. Just li
 
 Specify input/operation/output with +/=/- and type in text that will be displayed in the block. *General convention is that blocks should come in a sequence of outputs, operations and inputs, but that's just you choice*
 
+If you want to make loops, just make +@ for loop input and -@ for loop output. Currently only one loop is supported.
+
 ```txt
 #s
 =1038.34 wet bicarbonate
@@ -46,6 +48,8 @@ Specify input/operation/output with +/=/- and type in text that will be displaye
 
 New blocks within the row exist are placed simply below. Any kind of python formatting is acceptable.\
 Notably `\n` is for newline and `$_a$` is for subscripts and `$^a$` is for superscripts
+
+End your file with a new line with `#`!
 
 ### Multi-level blocks
 
