@@ -1,3 +1,7 @@
+Sankey-flatpak/build-dir
+Sankey-flatpak/.flatpak-builder
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
