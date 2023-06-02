@@ -2,7 +2,18 @@
 
 Generator of sankey diagrams in the old style
 
-If you want quick summary of what you can do run `python graphic.py -h` and look at the example file.
+## Install
+
+There isn't much you can do really, this software isn't "prepared" in any way for installation, it's just a simple python file
+
+My recommendation is that you should go to a convenient place in your system, like documents and type in this:
+
+`git clone https://github.com/TheTrebuchet/Old-Style-Sankey.git`
+
+and a directory will emerge, if you want to update the repo just do `git pull` anywhere in the directory
+
+Obviously if you put something inside examples it will get overwritten, if you feel like you really want your example to be here, just contribute on github!
+Any `.txt` files in the Old-Style-Sankey folder tho should be fine.
 
 ## Basics
 
