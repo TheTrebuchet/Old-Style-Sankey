@@ -76,14 +76,14 @@ def loopygoop(loop, glw, glh, ax):
     ax.add_patch(ptc.Arc((-r,stco[1]), 2*r, 2*r*ratio, angle=0.0, theta1=0, theta2=90, linewidth=1))
     ax.add_patch(ptc.Arc((-r,stco[1]), 2*(r+stent.value), 2*(r+stent.value)*ratio, angle=0.0, theta1=0, theta2=90, linewidth=1))
 
-    ax.add_patch(ptc.Arc((-r-margin,stco[1]), 2*r, 2*r*ratio, angle=0.0, theta1=90, theta2=180, linewidth=1))
-    ax.add_patch(ptc.Arc((-r-margin,stco[1]), 2*(r+stent.value), 2*(r+stent.value)*ratio, angle=0.0, theta1=90, theta2=180, linewidth=1))
+    ax.add_patch(ptc.Arc((-r-margin+stco[0],stco[1]), 2*r, 2*r*ratio, angle=0.0, theta1=90, theta2=180, linewidth=1))
+    ax.add_patch(ptc.Arc((-r-margin+stco[0],stco[1]), 2*(r+stent.value), 2*(r+stent.value)*ratio, angle=0.0, theta1=90, theta2=180, linewidth=1))
 
     ax.add_patch(ptc.Arc((-r-margin,enco[1]-enh), 2*r, 2*r*ratio, angle=0.0, theta1=180, theta2=270, linewidth=1))
     ax.add_patch(ptc.Arc((-r-margin,enco[1]-enh), 2*(r+enent.value), 2*(r+enent.value)*ratio, angle=0.0, theta1=180, theta2=270, linewidth=1))
 
-    ax.add_patch(ptc.Arc((-r,enco[1]-enh), 2*r, 2*r*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
-    ax.add_patch(ptc.Arc((-r,enco[1]-enh), 2*(r+enent.value), 2*(r+enent.value)*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
+    ax.add_patch(ptc.Arc((-r+enco[0],enco[1]-enh), 2*r, 2*r*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
+    ax.add_patch(ptc.Arc((-r+enco[0],enco[1]-enh), 2*(r+enent.value), 2*(r+enent.value)*ratio, angle=0.0, theta1=270, theta2=360, linewidth=1))
     
     offsetx = max(stco[0]+stent.value+margin+2*r, 0)
     offsety = max(stco[1]+(r+stent.value)*ratio, 0)
