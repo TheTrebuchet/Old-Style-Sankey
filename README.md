@@ -1,6 +1,9 @@
 # Sankey-generator
 
 Generator of sankey diagrams in the old style
+I recommend visiting the online page!
+https://thetrebuchet.github.io/Old-Style-Sankey/
+Everything below is the offline version, most features should be in both versions.
 
 ## Install
 
